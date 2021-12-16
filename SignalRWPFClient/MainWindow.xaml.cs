@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SignalRWPFClient
@@ -43,7 +41,7 @@ namespace SignalRWPFClient
                 this.Dispatcher.Invoke(() =>
                 {
                     JToken parsedJson = JToken.Parse(message);
-                    var beautified = parsedJson.ToString(Formatting.Indented);;
+                    var beautified = parsedJson.ToString(Formatting.Indented); ;
                     OutputBlock.Text += $"{user}:\n{beautified}\n";
                 });
             });
@@ -79,7 +77,7 @@ namespace SignalRWPFClient
             }
             #endregion
         }
-        
+
         private async void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
             #region snippet_ErrorHandling
@@ -94,46 +92,37 @@ namespace SignalRWPFClient
             }
             #endregion
         }
-
-        private void UpdateSignalRConnectionStatus(bool isConnected)
-        {
-            if (isConnected)
-            {
-                connectButton.IsEnabled = false;
-                connectButton.Visibility = Visibility.Collapsed;
-                disconnectButton.IsEnabled = true;
-                disconnectButton.Visibility = Visibility.Visible;
-                sendButton.IsEnabled = true;
-
-                userTextBox.Text = "WPF Client";
-                userTextBox.IsEnabled =true;
-                messageTextBox.Text = "This is a message from WPF Client";
-                messageTextBox.IsEnabled = true;
-
-                OutputBlock.Text += "*************************************Connected*************************************\n";
-            }
-            else
-            {
-                connectButton.IsEnabled = true;
-                connectButton.Visibility = Visibility.Visible;
-                disconnectButton.IsEnabled = false;
-                disconnectButton.Visibility = Visibility.Collapsed;
-                sendButton.IsEnabled = false;
-
-                userTextBox.Text = "disconnected";
-                userTextBox.IsEnabled =false;
-                messageTextBox.Text = "disconnected";
-                messageTextBox.IsEnabled = false;
-
-                OutputBlock.Text += "*************************************Disconnected**********************************\n";
-            }
-        }
-
         private async void clearOutputButton_Click(object sender, RoutedEventArgs e)
         {
             OutputBlock.Text = "";
         }
 
+        private void UpdateSignalRConnectionStatus(bool isConnected)
+        {
+            connectButton.IsEnabled = !isConnected;
+            connectButton.Visibility = isConnected ? Visibility.Collapsed : Visibility.Visible;
+            disconnectButton.IsEnabled = isConnected;
+            disconnectButton.Visibility = isConnected ? Visibility.Visible : Visibility.Collapsed;
+            sendButton.IsEnabled = isConnected;
+
+            userTextBox.IsEnabled = isConnected;
+            messageTextBox.IsEnabled = isConnected;
+
+            if (isConnected)
+            {
+                userTextBox.Text = "WPF Client";
+                messageTextBox.Text = "This is a message from WPF Client";
+
+                OutputBlock.Text += "*************************************Connected*************************************\n";
+            }
+            else
+            {
+                userTextBox.Text = "disconnected";
+                messageTextBox.Text = "disconnected";
+
+                OutputBlock.Text += "*************************************Disconnected**********************************\n";
+            }
         }
     }
+}
 #endregion
