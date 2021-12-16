@@ -1,0 +1,52 @@
+﻿<Window x:Class="SignalRWPFClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SignalRWPFClient"
+        mc:Ignorable="d"
+        Title="SignalR Chat WPF Client" Height="436" Width="782">
+    <Grid Margin="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width=".5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height=".3*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="110"/>
+            </Grid.ColumnDefinitions>
+ 
+            <Label Content="User" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="60" Grid.Column="0" Grid.Row="0"/>
+            <TextBox x:Name="userTextBox" HorizontalAlignment="Stretch" Height="41" TextWrapping="Wrap" Margin="10,0,10,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" IsEnabled="False" Text="disconnected"/>
+
+            <Label Content="Message" HorizontalAlignment="Left" Height="26" VerticalAlignment="Top" Width="60" Grid.Column="0" Grid.Row="1"/>
+            <TextBox x:Name="messageTextBox" HorizontalAlignment="Stretch" Height="41" TextWrapping="Wrap" Margin="10,0,10,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" IsEnabled="False" Text="disconnected"/>
+
+            <ScrollViewer Name="Scroller" Margin="0" Background="#FF000128" Grid.Row="2" Grid.ColumnSpan="4" CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
+                <TextBox Name="OutputBlock" Foreground="White" FontFamily="Consolas" Padding="10" FontWeight="Heavy" FontSize="18" IsReadOnly="True" TextWrapping="Wrap" Background="#012456">
+                </TextBox>
+            </ScrollViewer>
+
+            <Button x:Name="connectButton" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Click="connectButton_Click" Height="41" Grid.Row="0" Grid.Column="2" Visibility="Visible"/>
+            <Button x:Name="disconnectButton" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Click="disconnectButton_Click" Height="41" Grid.Row="0" Grid.Column="2" Visibility="Collapsed" />
+            <Button x:Name="clearButton" Content="Clear Output" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Click="clearOutputButton_Click" Height="41" Grid.Row="0" Grid.Column="3"  />
+            <Button x:Name="sendButton" Content="Send Message" HorizontalAlignment="Left" VerticalAlignment="Top" Width="95" Click="sendButton_Click" Height="41" Grid.Row="1" Grid.Column="2" IsEnabled="False"/>
+            
+        </Grid>
+    </Grid>
+</Window>
